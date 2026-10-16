@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="Development|x64">
+			<Configuration>Development</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+		<ProjectConfiguration Include="Production|x64">
+			<Configuration>Production</Configuration>
+			<Platform>x64</Platform>
+		</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+		<VCProjectVersion>18.0</VCProjectVersion>
+		<ProjectGuid>{C02DF275-7786-4000-914A-0E3A31488AFB}</ProjectGuid>
+		<Keyword>Win32Proj</Keyword>
+		<RootNamespace>witcher3dumper</RootNamespace>
+		<ProjectName>witcher3-dumper</ProjectName>
+		<WindowsTargetPlatformVersion>10.0.26100.0</WindowsTargetPlatformVersion>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup Label="Configuration">
+		<ConfigurationType>DynamicLibrary</ConfigurationType>
+		<PlatformToolset>v145</PlatformToolset>
+		<CharacterSet>Unicode</CharacterSet>
+		<UseOfMfc>false</UseOfMfc>
+		<WholeProgramOptimization>false</WholeProgramOptimization>
+		<SpectreMitigation>false</SpectreMitigation>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Development'" Label="Configuration">
+		<UseDebugLibraries>false</UseDebugLibraries>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)'=='Production'" Label="Configuration">
+		<UseDebugLibraries>false</UseDebugLibraries>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Label="ExtensionSettings" />
+	<ImportGroup Label="Shared" />
+	<ImportGroup Label="PropertySheets">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<PropertyGroup Label="UserMacros" />
+	<PropertyGroup>
+		<OutDir>$(ProjectDir)bin\</OutDir>
+		<IntDir>$(ProjectDir)bin\int\</IntDir>
+		<TargetName>witcher3-dumper</TargetName>
+		<GenerateManifest>false</GenerateManifest>
+		<LinkIncremental>false</LinkIncremental>
+	</PropertyGroup>
+	<ItemDefinitionGroup>
+		<ClCompile>
+			<LanguageStandard>stdcpplatest</LanguageStandard>
+			<WarningLevel>TurnOffAllWarnings</WarningLevel>
+			<TreatWarningAsError>false</TreatWarningAsError>
+			<SDLCheck>false</SDLCheck>
+			<Optimization>Disabled</Optimization>
+			<IntrinsicFunctions>true</IntrinsicFunctions>
+			<BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<ControlFlowGuard>false</ControlFlowGuard>
+			<PrecompiledHeader>NotUsing</PrecompiledHeader>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<DebugInformationFormat>None</DebugInformationFormat>
+			<ConformanceMode>true</ConformanceMode>
+			<AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+			<AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>_WINDOWS;_USRDLL;NOMINMAX;_MSVC_STL_HARDENING=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+		</ClCompile>
+		<Link>
+			<SubSystem>Windows</SubSystem>
+			<GenerateDebugInformation>false</GenerateDebugInformation>
+			<EnableUAC>false</EnableUAC>
+			<AdditionalDependencies>user32.lib;dbghelp.lib;shell32.lib;ole32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+		</Link>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)'=='Development'">
+		<ClCompile>
+			<PreprocessorDefinitions>DEVELOPMENT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)'=='Production'">
+		<ClCompile>
+			<PreprocessorDefinitions>PRODUCTION;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+		</ClCompile>
+	</ItemDefinitionGroup>
+	<ItemGroup>
+		<ClCompile Include="main.cpp" />
+		<ClCompile Include="anchors\anchors.cpp" />
+		<ClCompile Include="collector\collector.cpp" />
+		<ClCompile Include="dumper\dumper.cpp" />
+		<ClCompile Include="writer\writer.cpp" />
+		<ClCompile Include="sdk\CName\CName.cpp" />
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="anchors\anchors.hpp" />
+		<ClInclude Include="collector\collector.hpp" />
+		<ClInclude Include="dumper\dumper.hpp" />
+		<ClInclude Include="writer\writer.hpp" />
+		<ClInclude Include="writer\exec_page.hpp" />
+		<ClInclude Include="utils\memory.hpp" />
+		<ClInclude Include="utils\logger.hpp" />
+		<ClInclude Include="sdk\CName\CName.hpp" />
+		<ClInclude Include="sdk\TDynArray\TDynArray.hpp" />
+		<ClInclude Include="sdk\THashMap\THashMap.hpp" />
+		<ClInclude Include="sdk\TString\TString.hpp" />
+		<ClInclude Include="sdk\IRTTIType\IRTTIType.hpp" />
+		<ClInclude Include="sdk\CClass\CClass.hpp" />
+		<ClInclude Include="sdk\CProperty\CProperty.hpp" />
+		<ClInclude Include="sdk\CFunction\CFunction.hpp" />
+		<ClInclude Include="sdk\CEnum\CEnum.hpp" />
+		<ClInclude Include="sdk\CBitField\CBitField.hpp" />
+		<ClInclude Include="sdk\CRTTISystem\CRTTISystem.hpp" />
+		<ClInclude Include="sdk\IConfigVar\IConfigVar.hpp" />
+		<ClInclude Include="sdk\CConfigVarRegistry\CConfigVarRegistry.hpp" />
+		<ClInclude Include="sdk\CConfigSystem\CConfigSystem.hpp" />
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ImportGroup Label="ExtensionTargets" />
+</Project>
